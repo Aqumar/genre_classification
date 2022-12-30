@@ -18,7 +18,7 @@ def go(args):
     logger.info("Downloading artifact")
     artifact = run.use_artifact(args.input_artifact)
     artifact_path = artifact.file()
-
+    print("artifact_path:", artifact_path)
     df = pd.read_parquet(artifact_path)
 
     # Drop the duplicates

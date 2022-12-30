@@ -26,10 +26,11 @@ def go(args):
         logger.info("Creating run")
         with wandb.init(job_type="download_data") as run:
             # Download the file streaming and write to open temp file
+            '''
             with requests.get(args.file_url, stream=True) as r:
                 for chunk in r.iter_content(chunk_size=8192):
                     fp.write(chunk)
-
+            '''
             # Make sure the file has been written to disk before uploading
             # to W&B
             fp.flush()
@@ -41,7 +42,8 @@ def go(args):
                 description=args.artifact_description,
                 metadata={'original_url': args.file_url}
             )
-            artifact.add_file(fp.name, name=basename)
+            #artifact.add_file(fp.name, name=basename)
+            artifact.add_file("genres_mod.parquet", name=basename)
 
             logger.info("Logging artifact")
             run.log_artifact(artifact)
